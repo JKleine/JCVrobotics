@@ -11,7 +11,7 @@ Documentation for CV Robotics Projects
 -Gobilda Servo PDB\
 -Gobilda 6v 3000mah 20A NiMH Battery\
 -Gobilda Series 2000 Dual Mode Servo (25-2, Torque) x4\
--Gobilda Tumbleweed track system\
+-Gobilda Tumbleweed track system
 ## Software
 -Official Raspberry Pi OS\
 -Pico 2 W MicroPython firmware
