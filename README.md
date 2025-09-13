@@ -14,4 +14,4 @@ Documentation for CV Robotics Projects
 -Gobilda Tumbleweed track system\
 ## Software
 -Official Raspberry Pi OS\
--Pico 2 W MicroPython firmware\
+-Pico 2 W MicroPython firmware
