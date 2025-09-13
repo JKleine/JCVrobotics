@@ -1,5 +1,5 @@
-# JCVrobotics
-Documentation for CV Robotics
+# Overview
+Documentation for CV Robotics Projects
 ## Hardware
 -Raspberry Pi 5 16GB\
 -Raspberry Pi AI Hat+ (Hailo-8, 26 TOPS)\
