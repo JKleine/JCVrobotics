@@ -1,6 +1,5 @@
 # Project J1 - CV Robotics Platform
 
-*(Image/GIF of the J1 robot in action)*
 
 This is J1, a custom-built tracked robot I designed and built from scratch. It's designed to be a flexible platform for computer vision and robotics experiments, running on a Raspberry Pi 5 with support from a Pico W.
 
