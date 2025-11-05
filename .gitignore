@@ -1,0 +1,25 @@
+# --- Environment Folders ---
+# Ignore the main virtual environment folder
+venv/
+# Ignore the Hailo environment folder
+hailo-rpi5-examples/
+
+# --- Python Build/Cache Files ---
+__pycache__/
+*.pyc
+*.egg-info/
+.mypy_cache/
+.pytest_cache/
+
+# --- Runtime Files (Shared Memory) ---
+# Sensor and Control State JSON files (in /dev/shm)
+/dev/shm/sensor_data.json
+/dev/shm/control_state.json
+
+# Vision/Display Runtime Files (in /dev/shm or local dir)
+pygame_frame.npy
+*.npy.tmp
+
+# --- Logs and System Files ---
+*.log
+.DS_Store

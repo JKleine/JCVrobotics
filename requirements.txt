@@ -1,0 +1,31 @@
+################################################################################
+# J1 ROBOT PYTHON DEPENDENCIES
+#
+# This file lists all packages required for the core control system, web server,
+# console display (LCARS), and speech functionality.
+################################################################################
+
+# --- Core System Packages ---
+lgpio             # For sensor (SHTC3) access on Pi 5 (replace RPi.GPIO)
+smbus             # For I2C sensor access
+pyserial          # For communicating with the Pico (control.py)
+# Note: You may need to install these as system packages or manually
+# in your venv if they have C dependencies.
+
+# --- Web / Networking ---
+websockets        # For the high-performance command relay (webserver.py)
+
+# --- Display / Controller ---
+pygame            # For local UI and controller input (display.py, control.py)
+numpy             # For efficient array manipulation (display.py, visionstreamer.py)
+psutil            # For reading CPU/Memory usage (display.py)
+
+# --- Speech ---
+pyttsx3           # For the text-to-speech functionality (speech.py)
+
+
+# --- Example Pinning (from pip freeze output) ---
+# psutil==7.1.2
+# pygame==2.5.2
+# pyttsx3==2.99
+# websockets==15.0.1

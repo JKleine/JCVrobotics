@@ -1,0 +1,86 @@
+{
+  "pose": [
+    {
+      "command": "HAPPY",
+      "pause": 0.0
+    },
+    {
+      "command": "HX 135",
+      "pause": 0.0
+    },
+    {
+      "command": "HY 160",
+      "pause": 0.0
+    },
+    {
+      "command": "BROW ON",
+      "pause": 0.0
+    },
+    {
+      "command": "ACCENT HEART",
+      "pause": 2.0
+    },
+    {
+      "command": "BROW OFF",
+      "pause": 0.0
+    }
+  ],
+  "dance": [
+    {
+      "command": "HAPPY",
+      "pause": 0.0
+    },
+    {
+      "command": "BLUSH ON",
+      "pause": 0.0
+    },
+    {
+      "command": "SPEAK . Let's Dance .",
+      "pause": 0.5
+    },
+    {
+      "command": "HX 160",
+      "pause": 0.4
+    },
+    {
+      "command": "HX 200",
+      "pause": 0.4
+    },
+    {
+      "command": "HX 160",
+      "pause": 0.4
+    },
+    {
+      "command": "HX 200",
+      "pause": 0.4
+    },
+    {
+      "command":"HX 160",
+      "pause": 0.4
+    },
+    {
+      "command": "HX 200",
+      "pause": 0.4
+    },
+    {
+      "command": "HX 160",
+      "pause": 0.4
+    },
+    {
+      "command": "HX 200",
+      "pause": 0.4
+    },
+    {
+      "command": "IDLE",
+      "pause": 0.0
+    },
+    {
+      "command": "HX 180",
+      "pause": 0.0
+    },
+    {
+      "command": "BLUSH OFF",
+      "pause": 0.0
+    }
+  ]
+}
