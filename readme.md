@@ -10,7 +10,7 @@ The primary architectural challenge was achieving **stable, low-latency, and sim
 
 1.  **AI Acceleration:** Real-time object detection using the Hailo-8 NPU.
 2.  **Web Control:** Persistent, low-latency teleoperation accessible from any network device.
-3.  **Local Display:** Continuous, dedicated video feed for the on-board UI.
+3.  **Local Headless Display:** Continuous, dedicated video feed for the on-board UI.
 
 The solution utilizes an **Asynchronous, Multi-Process Architecture** where system stability is prioritized over monolithic design.
 
