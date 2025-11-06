@@ -65,7 +65,7 @@ These components are slated for integration to enable full Simultaneous Localiza
 
 Control stability is achieved by separating high-level logic (Pi 5) from low-level, timing-critical operations (Pico).
 
-### 🔌 Component Communication & Input Methods
+### Component Communication & Input Methods
 
 | Component/Task | Protocol(s) Used | Purpose / Input Method |
 | :--- | :--- | :--- |
