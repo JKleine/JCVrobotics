@@ -141,7 +141,7 @@ Scripts communicate using a combination of:
 
 ## Development Roadmap <a name="roadmap"></a>
 
-The following goals focus on transitioning J1 from a teleoperated platform to a fully autonomous agent.
+The following goals focus on transitioning J1 from a teleoperated platform to a fully autonomous robot.
 
 ### I. Autonomous Capabilities & SLAM
 
