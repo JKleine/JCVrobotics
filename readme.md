@@ -3,10 +3,10 @@
     <img src="https://img.shields.io/static/v1?label=&message=Hardware&color=9999FF&style=pill" alt="Hardware Overview">
   </a>
   <a href="#hardware-architecture">
-    <img src="https://img.shields.io/static/v1?label=&message=Hardware%20Arcitecture&color=FFA54A&style=pill" alt="Hardware Architecture">
+    <img src="https://img.shields.io/static/v1?label=&message=Hardware%20Architecture&color=FFA54A&style=pill" alt="Hardware Architecture">
   </a>
   <a href="#software-architecture">
-    <img src="https://img.shields.io/static/v1?label=&message=Software%20Arcitecture&color=FF8C00&style=pill" alt="Software Architecture">
+    <img src="https://img.shields.io/static/v1?label=&message=Software%20Architecture&color=FF8C00&style=pill" alt="Software Architecture">
   </a>
   <a href="#roadmap">
     <img src="https://img.shields.io/static/v1?label=&message=Roadmap&color=CC6666&style=pill" alt="Roadmap">
