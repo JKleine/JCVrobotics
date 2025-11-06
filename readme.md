@@ -78,6 +78,7 @@ Scripts communicate using a combination of:
 | **`display.py`** | **Local UI.** Renders the LCARS dashboard, reading system performance and displaying the raw video feed. Also gives the robot personality.| `pygame`, `psutil` |
 | **`sensors.py`** | **Data Ingestion.** Polling I2C sensors and publishing raw data to shared state files. | `lgpio`, `smbus` |
 | **`speech.py`** | **Text-to-Speech Output.** Processes vocalization commands from the Operator. | `pyttsx3` |
+| **`Pico Script (main)`** | **Hardware Control** Processes commands from the control script and controls servo's/LED's | `MicroPython` |
 
 ---
 
