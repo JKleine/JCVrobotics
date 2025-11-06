@@ -72,7 +72,7 @@ Scripts communicate using a combination of:
 | Script File | Primary Responsibility | Key Libraries / Technologies |
 | :--- | :--- | :--- |
 | **`robot_operator.py`** | **State Orchestrator & Command Router** (The "Brain"). Manages high-level robot state and prevents command conflicts. | `selectors`, `threading` |
-| **`visionstreamer.py`** | **Vision Pipeline.** Performs Hailo inference and publishes results. Splits the raw camera feed for all consumers. | **HailoRT**, `numpy` |
+| **`visionstreamer.py`** | **Vision Pipeline.** Performs Hailo inference and publishes results. Splits the raw camera feed for all consumers. | `HailoRT`, `numpy` |
 | **`webserver.py`** | **External Communication Bridge.** Serves the HTML frontend for control and converts the video stream into a stable HTTP MJPEG stream. | `websockets`, `asyncio` |
 | **`control.py`** | **Hardware Control Interface.** Translates high-level commands into serial signals for the motor controller (Pico/RP2040). | `pyserial`, `pygame` |
 | **`display.py`** | **Local UI.** Renders the LCARS dashboard, reading system performance and displaying the raw video feed. Also gives the robot personality.| `pygame`, `psutil` |
