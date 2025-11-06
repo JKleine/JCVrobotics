@@ -15,7 +15,16 @@
 # 🤖 J1: Real-Time Computer Vision Platform and Robotic Companion
 
 The **J1** is a robust mobile robot designed as a high-performance platform for complex **computer vision and robotics systems research**, and to function as a **friendly robotic companion**.
-
+<p align="center">
+  <img alt="Python" src="https://img.shields.io/badge/Python-3.10+-3776AB?logo=python">
+  <img alt="Raspberry Pi 5" src="https://img.shields.io/badge/Raspberry%20Pi-5-A22846?logo=raspberrypi">
+  <img alt="Hailo-8" src="https://img.shields.io/badge/AI-Hailo--8-7B00FF">
+  <img alt="OpenCV" src="https://img.shields.io/badge/OpenCV-5C3EE8?logo=opencv">
+  <img alt="GStreamer" src="https://img.shields.io/badge/GStreamer-CA0000?logo=gstreamer">
+  <img alt="NumPy" src="https://img.shields.io/badge/NumPy-013243?logo=numpy">
+  <img alt="MicroPython" src="https://img.shields.io/badge/MicroPython-white?logo=micropython">
+  <img alt="Pygame" src="https://img.shields.io/badge/Pygame-62A81E?logo=pygame">
+</p>
 ---
 ## 🛠️ Hardware: Current v1.0 & Planned Expansion <a name="hardware"></a>
 
