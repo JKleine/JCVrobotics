@@ -48,7 +48,7 @@ The platform integrates specialized components and offloads low-level tasks to d
 
 ---
 
-### Planned Sensor and Actuator Upgrades
+### Planned Sensor Upgrades
 
 These components are slated for integration to enable full Simultaneous Localization and Mapping (SLAM) and enhanced autonomous navigation.
 
