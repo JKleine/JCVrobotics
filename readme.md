@@ -12,7 +12,8 @@
     <img src="https://img.shields.io/static/v1?label=&message=Roadmap&color=CC6666&style=pill" alt="Roadmap">
   </a>
 </p>
-## 🤖 J1: Real-Time Computer Vision Platform and Robotic Companion
+
+# 🤖 J1: Real-Time Computer Vision Platform and Robotic Companion
 
 The **J1** is a robust mobile robot designed as a high-performance platform for complex **computer vision and robotics systems research**, and to function as a **friendly robotic companion**.
 <p align="center">
