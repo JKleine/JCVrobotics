@@ -1,88 +1,96 @@
-# 🤖 J1 Robotics Platform: Decoupled Control and Real-Time AI Architecture
+# 🤖 J1 Robotics Platform: Real-Time Computer Vision and Robotic Companion
+
+The **J1** is a robust mobile robot designed as a high-performance platform for complex **computer vision and robotics systems research**, and also to function as a **friendly robotic companion**.
 
 ---
 
-## 💡 Project Thesis & Core Challenge
+## 🛠️ Hardware: Current v1.0 & Planned Expansion
 
-The J1 Robotics Platform is a Raspberry Pi 5-based mobile robot built as a demonstration of complex **computer vision and robotics systems integration**.
+The platform integrates specialized components and offloads low-level tasks to dedicated hardware to maximize performance on the Raspberry Pi 5.
 
-The primary architectural challenge was achieving **stable, low-latency, and simultaneous performance** across three critical domains on a single-board computer:
+### Current Hardware (J1 v1.0)
 
-1.  **AI Acceleration:** Real-time object detection using the Hailo-8 NPU.
-2.  **Web Control:** Persistent, low-latency teleoperation accessible from any network device.
-3.  **Local Headless Display:** Continuous, dedicated video feed for the on-board UI.
-
-The solution utilizes an **Asynchronous, Multi-Process Architecture** where system stability is prioritized over monolithic design.
-
----
-
-## 🛠️ Hardware Specification (J1 v1.0)
-
-The platform is designed around maximizing the capabilities of the Raspberry Pi 5 and its dedicated accelerator hardware.
-
-| Component | Function | Interface / Protocol |
-| :--- | :--- | :--- |
-| **Main Compute** | Raspberry Pi 5 (8GB) | Host for all Python microservices (Linux) |
-| **AI Accelerator** | Hailo-8 M.2 Edge AI Module | PCIe Gen 2 Interface (4 GT/s) |
-| **Motor Controller** | Raspberry Pi Pico (RP2040) | USB-Serial (Pyserial) |
-| **Environmental Sensor** | SHTC3 (Temp/Humidity) | I2C Bus (LGPIO) |
-| **Barometer** | LPS22HB (Pressure) | I2C Bus (SMBus) |
-| **IMU (Body)** | QMI8658 / AK09918 (9-DoF) | I2C Bus (SMBus) |
-| **Power Monitor** | INA219 (UPS/Battery) | I2C Bus (SMBus) |
-| **ADC** | SGM58031 (Analog Inputs) | I2C Bus (SMBus) |
-| **Color Sensor** | TCS34087 (Color/Ambient Light) | I2C Bus (SMBus) |
-| **Actuators** | DC Motors w/ Gearbox, Head Servos | PWM/GPIO (Pico) |
-
----
-
-## ⚙️ Technical Architecture & Inter-Process Communication (IPC)
-
-The robot is managed by **seven decoupled Python microservices** that communicate using high-speed OS primitives, ensuring high throughput and resilience against single-component failure.
-
-| Script File | Primary Responsibility | IPC Protocol(s) | Key Libraries |
+| Component | Brand / Model | Protocol | Purpose |
 | :--- | :--- | :--- | :--- |
-| **`robot_operator.py`** | **State Orchestrator & Command Router.** Manages high-level robot state (MANUAL/AUTO) and prevents command conflicts. | TCP Sockets | `selectors`, `threading` |
-| **`visionstreamer.py`** | **Triple-Output Vision Pipeline.** Splits the camera feed for all downstream consumers. Performs Hailo inference and publishes the result. | GStreamer, UDP, NumPy Shared Memory | **HailoRT**, `numpy` |
-| **`webserver.py`** | **External Communication Bridge.** Serves the HTML frontend and converts the UDP video stream into a stable HTTP MJPEG stream. | WebSockets, TCP/UDP Sockets | `websockets`, `asyncio` |
-| **`control.py`** | **Hardware Control Interface.** Translates high-level commands into serial signals for the motor controller (Pico/RP2040). Handles game controller input. | Pygame (Joystick), Serial Port, JSON | `pyserial`, `pygame` |
-| **`display.py`** | **Local UI/HMI.** Renders the LCARS dashboard, reading system performance and displaying the raw video feed from shared memory. | JSON/NumPy Shared Memory | `pygame`, `psutil` |
-| **`sensors.py`** | **Data Ingestion.** Polling I2C sensors (IMU, Environmental, Power) and publishing raw data to shared state files. | I2C Bus, JSON Shared File | `lgpio`, `smbus` |
-| **`speech.py`** | **Text-to-Speech Output.** Processes vocalization commands from the Operator. | TCP Sockets | `pyttsx3` |
+| **Main Compute** | **Raspberry Pi 5 (16GB)** | OS (Raspberry Pi OS) | Orchestration and microservice execution. |
+| **AI Accelerator** | **Hailo-8 NPU (26 TOPS)** | **PCIe Gen 2 (4 GT/s)** | High-speed, on-device vision inference. |
+| **Drive System** | **GoBilda Tumbleweed Track System** | N/A | High-traction mobile platform foundation. |
+| **Motor Controller** | **Raspberry Pi Pico 2W** | UART Bus (Pyserial) | Low-level control for motors and servos. |
+| **Camera** | ArduCam 64 MP Owl Sight | CSI | High-resolution primary vision source. |
+| **Display** | Waveshare 4.3 in LCD Panel | DSI / Framebuffer | Local UI/Display. |
+| **Battery / UPS** | Waveshare UPS 3S / INA219 | I2C Bus (SMBus) | Uninterruptible power supply and power monitoring. |
+| **Onboard Sensors** | Waveshare Sense HAT(C) | I2C Bus (LGPIO/SMBus) | Body 9-DoF IMU, Environmental, ADC, and Color sensor. |
+| **Actuators** | 4x GoBilda Series 2000 Torque Servos (25-2) | PWM/GPIO (Pico) | Differential drive and head pan/tilt control. |
+| **Headlight** | GoBilda PWM Controlled LED (400 lux) | PWM/GPIO (Pico) | Controlled illumination for vision tasks. |
 
 ---
 
-## 🔬 Execution and Stability
+### Planned Sensor and Actuator Upgrades
 
-### High-Integrity Video Pipeline
-The core execution challenge was solved by building a **GStreamer pipeline using `tee` elements**, which is the **most resource-efficient way** to clone a raw camera source. This technique guarantees the Hailo accelerator receives its data at the highest priority, while the web stream and local display receive separate, stable branches.
+These components are slated for integration to enable full Simultaneous Localization and Mapping (SLAM) and enhanced autonomous navigation.
 
-### Decoupling State
-To prevent command conflicts and state jumping (e.g., when switching from game controller to web UI), the system relies on two critical patterns:
-* **Atomic Shared Memory:** Status data (`control_state.json`) and raw video frames (`pygame_frame.npy`) are written to files using atomic operations (`os.rename` or direct `numpy.save`), ensuring that consumers (like `display.py`) never read a corrupted or half-written file during a race condition.
-* **Decoupled Servoing:** Relative motion commands from the web UI are calculated by the **`robot_operator.py`** (the "Brain") only after it reads the robot's *actual* current position from the `control.py` status file, eliminating state desynchronization.
-
-### Launch Management
-The entire environment stack, including the specialized Hailo environment, is launched via a single **`start_robot.sh`** script managed by $\text{tmux}$. This ensures **process persistence**—allowing all services to run reliably in the background regardless of SSH session status—and guarantees that each service is activated with its exact required environmental variables.
+| Component | Sensor Suite / Model | Protocol | Purpose |
+| :--- | :--- | :--- | :--- |
+| **2D Lidar** | **YDLIDAR T-Mini+** (2D Laser Scanner) | USB / Serial | Environmental mapping and feature extraction for SLAM. |
+| **Depth Sensing** | **VL53L5CX** (Multizone Time-of-Flight Imager) | I2C Bus | Close-range, multi-point obstacle detection for near-field navigation. |
+| **Enhanced Odometry** | **AS5600** (Track Encoders) | I2C Bus / SPI | Direct measurement of wheel rotation to improve dead reckoning accuracy. |
+| **Head IMU** | **BNO085** | I2C Bus | Precisely track the head's orientation to map visual data to a known coordinate frame. |
 
 ---
 
-## 📅 Future Goals & Development Roadmap
+## 🏗️ Hardware Architecture & Communication
 
-The platform's current success provides a stable foundation for implementing more advanced robotics capabilities. Future development will focus on transitioning the J1 robot from a teleoperated platform to an autonomous agent capable of environmental awareness and navigation.
+Control stability is achieved by separating high-level logic (Pi 5) from low-level, timing-critical operations (Pico).
 
-### I. Autonomous Capabilities & Control
+### 🔌 Component Communication & Input Methods
 
-| Goal | Description | Architectural Impact |
+| Component/Task | Protocol(s) Used | Purpose / Input Method |
 | :--- | :--- | :--- |
-| **Complete Autonomous Logic** | Fully develop the placeholder logic within `robot_operator.py` to enable complex decision-making based on sensor and vision data. | Refine state machine logic, integrating real-time object/power status for self-preservation and task execution. |
-| **Local Velocity Control** | Integrate the track encoders into `control.py` to move from open-loop speed commands to closed-loop velocity control for improved odometry. | Requires PID control loop logic within the motor control firmware (Pico/RP2040) and data streaming back to the host. |
-| **Head-IMU Integration** | Integrate the new IMU directly onto the head servo assembly to precisely track the head's orientation and map visual data to a known coordinate frame. | Requires adding `IMU` reading logic to `control.py` or a dedicated head sensor script. |
+| **Vision Inference** | **PCIe Gen 2 / GStreamer** | High-speed interface to the **Hailo-8 Accelerator** for real-time vision processing. |
+| **Low-Level Control** | **USB-Serial (Pyserial)** | Main control link to the dedicated **RP2040** microcontroller. |
+| **Onboard Sensing** | **I2C Bus (LGPIO/SMBus)** | Polling of all onboard sensors (IMU, environmental, power). |
+| **Web Teleoperation** | **Browser Terminal / WebSockets** | LCARS-style browser terminal providing low-latency video feed and robot controls. |
+| **Physical Teleoperation** | **Pygame (Controller API)** | Direct control via a Nintendo Switch Pro controller. |
+| **Video Distribution** | **GStreamer, UDP, Shared Memory** | Resource-efficient pipeline for streaming raw video to multiple consumers (AI, display, web). |
 
-### II. Sensor Fusion & Mapping (SLAM)
+---
 
-| Goal | Sensor Suite | Purpose |
+## 💻 Software Architecture & Stack
+
+The robot's functionality is managed by **seven separate Python scripts** that communicate through a combination of methods tailored for high performance and integrity.
+
+### Inter-Process Communication (IPC)
+
+Scripts communicate using a combination of:
+* **Port Streaming:** Low-latency video distribution via protocols like **UDP** and **GStreamer**.
+* **Socket Communication:** Reliable, flexible data exchange for state and command routing via **TCP Sockets** and **WebSockets**.
+* **Serial/UART Bus:** Direct, low-level data transfer with dedicated controllers like the RP2040 (via `pyserial`).
+* **Atomic Shared Memory:** Utilizing NumPy files (`.npy`) and JSON files for high-speed, conflict-free state access.
+
+### Scripts, Responsibilities, and Libraries
+
+| Script File | Primary Responsibility | Key Libraries / Technologies |
 | :--- | :--- | :--- |
-| **Lidar Integration** | **YDLIDAR T-Mini+** (2D Laser Scanner) | Establish reliable 2D environmental sensing, collision avoidance, and feature extraction for simultaneous localization and mapping (SLAM). |
-| **Depth/Proximity Sensing** | **Multizone Time-of-Flight (ToF) Imager** | Provide close-range, multi-point obstacle detection and ground plane estimation for near-field navigation, supplementing the wide-range Lidar. |
-| **Enhanced Odometry** | **Track Encoders** | Improve dead reckoning accuracy by directly measuring wheel rotation, significantly reducing drift in the localization pipeline. |
-| **Full SLAM Implementation** | Integrate Lidar, ToF, and enhanced odometry data into a unified framework (e.g., ROS/SLAM Toolbox, or custom solution) to create and maintain an internal map of the operating environment. | This requires a dedicated fusion node to merge the three sensor inputs, enabling the robot to navigate unknown spaces autonomously. |
+| **`robot_operator.py`** | **State Orchestrator & Command Router** (The "Brain"). Manages high-level robot state and prevents command conflicts. | `selectors`, `threading` |
+| **`visionstreamer.py`** | **Vision Pipeline.** Performs Hailo inference and publishes results. Splits the raw camera feed for all consumers. | **HailoRT**, `numpy` |
+| **`webserver.py`** | **External Communication Bridge.** Serves the HTML frontend for control and converts the video stream into a stable HTTP MJPEG stream. | `websockets`, `asyncio` |
+| **`control.py`** | **Hardware Control Interface.** Translates high-level commands into serial signals for the motor controller (Pico/RP2040). | `pyserial`, `pygame` |
+| **`display.py`** | **Local UI.** Renders the LCARS dashboard, reading system performance and displaying the raw video feed. Also gives the robot personality.| `pygame`, `psutil` |
+| **`sensors.py`** | **Data Ingestion.** Polling I2C sensors and publishing raw data to shared state files. | `lgpio`, `smbus` |
+| **`speech.py`** | **Text-to-Speech Output.** Processes vocalization commands from the Operator. | `pyttsx3` |
+
+---
+
+## 📅 Development Roadmap & Planned Upgrades
+
+The following goals focus on transitioning J1 from a teleoperated platform to a fully autonomous agent.
+
+### I. Autonomous Capabilities & SLAM
+
+* **Full SLAM Implementation:** Integrate Lidar, ToF, and enhanced odometry data into a unified framework to create and maintain an internal map of the operating environment.
+* **Complete Autonomous Logic:** Fully develop the logic within `robot_operator.py` to enable complex decision-making based on fused sensor and vision data.
+
+### II. Design & System Upgrades
+
+* **Sensor Suite Integration:** Complete the hardware and software integration of the planned **Lidar**, **ToF Imager**, **Encoders**, and **Head IMU**.
+* **Body Design & 3D Printing:** Design and 3D print an optimized body/chassis for the J1 robot that can securely mount all new sensor components and protect the internal hardware.
