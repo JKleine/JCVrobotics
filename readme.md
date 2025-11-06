@@ -1,10 +1,23 @@
+<p align="center">
+  <a href="#hardware">
+    <img src="https://img.shields.io/static/v1?label=&message=Hardware&color=9999FF&style=pill" alt="Hardware Overview">
+  </a>
+  <a href="#hardware-architecture">
+    <img src="https://img.shields.io/static/v1?label=&message=Hardware%20Arcitecture&color=FFA54A&style=pill" alt="Hardware Architecture">
+  </a>
+  <a href="#software-architecture">
+    <img src="https://img.shields.io/static/v1?label=&message=Software%20Arcitecture&color=FF8C00&style=pill" alt="Software Architecture">
+  </a>
+  <a href="#roadmap">
+    <img src="https://img.shields.io/static/v1?label=&message=Roadmap&color=CC6666&style=pill" alt="Roadmap">
+  </a>
+</p>
 # 🤖 J1: Real-Time Computer Vision Platform and Robotic Companion
 
-The **J1** is a robust mobile robot designed as a high-performance platform for complex **computer vision and robotics systems research**, and also to function as a **friendly robotic companion**.
+The **J1** is a robust mobile robot designed as a high-performance platform for complex **computer vision and robotics systems research**, and to function as a **friendly robotic companion**.
 
 ---
-
-## 🛠️ Hardware: Current v1.0 & Planned Expansion
+## 🛠️ Hardware: Current v1.0 & Planned Expansion <a name="hardware"></a>
 
 The platform integrates specialized components and offloads low-level tasks to dedicated hardware to maximize performance on the Raspberry Pi 5.
 
@@ -38,7 +51,7 @@ These components are slated for integration to enable full Simultaneous Localiza
 
 ---
 
-## 🏗️ Hardware Architecture & Communication
+## 🏗️ Hardware Architecture <a name="hardware-architecture"></a>
 
 Control stability is achieved by separating high-level logic (Pi 5) from low-level, timing-critical operations (Pico).
 
@@ -55,7 +68,41 @@ Control stability is achieved by separating high-level logic (Pi 5) from low-lev
 
 ---
 
-## 💻 Software Architecture & Stack
+```mermaid
+%%{init: {'theme':'dark', 'themeVariables': { 'darkMode':'true','background':'#000','primaryColor':'#CC6699','primaryTextColor':'#CC6699','primaryBorderColor':'#CC6699','lineColor':'#9999FF','secondaryColor':'#9999FF','tertiaryColor':'#FF9966','fontSize':'14px','nodeBorder':'#CC6699','clusterBkg':'#000','clusterBorder':'#CC6699','edgeLabelBackground':'#000'}}}%%
+flowchart TB
+    Pi5[Raspberry Pi 5 16GB]:::magenta
+    
+    Camera[ArduCam 64MP Owl Sight]:::blue
+    Hailo[Hailo-8 NPU 26 TOPS]:::blue
+    
+    Pico[Raspberry Pi Pico 2W]:::brightorange
+    Servos[4x GoBilda Torque Servos]:::lightorange
+    LED[GoBilda PWM LED 400 lux]:::lightorange
+    
+    SenseHAT[Waveshare Sense HAT C]:::blue
+    
+    UPS[Waveshare UPS 3S]:::blue
+    
+    LCD[Waveshare 4.3in LCD]:::blue
+    
+    Camera -->|CSI| Pi5
+    Pi5 <-->|PCIe Gen 2| Hailo
+    Pi5 <-->|UART Pyserial| Pico
+    Pi5 <-->|I2C SMBus| SenseHAT
+    Pi5 <-->|I2C SMBus| UPS
+    Pi5 -->|DSI Framebuffer| LCD
+    Pico -->|PWM GPIO| Servos
+    Pico -->|PWM GPIO| LED
+    
+    classDef magenta fill:#CC6699,stroke:#CC6699,stroke-width:3px,color:#000,rx:20,ry:20
+    classDef blue fill:#9999FF,stroke:#9999FF,stroke-width:2px,color:#000,rx:20,ry:20
+    classDef brightorange fill:#FF9966,stroke:#FF9966,stroke-width:2px,color:#000,rx:20,ry:20
+    classDef lightorange fill:#FFCC99,stroke:#FFCC99,stroke-width:2px,color:#000,rx:20,ry:20
+```
+---
+
+## 💻 Software Architecture <a name="software-architecture"></a>
 
 The robot's functionality is managed by **seven separate Python scripts** that communicate through a combination of methods tailored for high performance and integrity.
 
@@ -82,7 +129,7 @@ Scripts communicate using a combination of:
 
 ---
 
-## 📅 Development Roadmap & Planned Upgrades
+## 📅 Development Roadmap <a name="roadmap"></a>
 
 The following goals focus on transitioning J1 from a teleoperated platform to a fully autonomous agent.
 
