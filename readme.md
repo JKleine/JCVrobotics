@@ -25,7 +25,7 @@ The **J1** is a robust mobile robot designed as a high-performance platform for 
   <img alt="MicroPython" src="https://img.shields.io/badge/MicroPython-white?logo=micropython">
   <img alt="Pygame" src="https://img.shields.io/badge/Pygame-62A81E?logo=pygame">
 </p>
----
+
 ## 🛠️ Hardware: Current v1.0 & Planned Expansion <a name="hardware"></a>
 
 The platform integrates specialized components and offloads low-level tasks to dedicated hardware to maximize performance on the Raspberry Pi 5.
