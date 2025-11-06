@@ -13,7 +13,7 @@
   </a>
 </p>
 
-# 🤖 J1: Real-Time Computer Vision Platform and Robotic Companion
+# J1: Real-Time Computer Vision Platform and Robotic Companion
 
 The **J1** is a robust mobile robot designed as a high-performance platform for complex **computer vision and robotics systems research**, and to function as a **friendly robotic companion**.
 <p align="center">
@@ -27,7 +27,7 @@ The **J1** is a robust mobile robot designed as a high-performance platform for 
   <img alt="Pygame" src="https://img.shields.io/badge/Pygame-62A81E?logo=pygame">
 </p>
 
-## 🛠️ Hardware: Current v1.0 & Planned Expansion <a name="hardware"></a>
+## Hardware: Current v1.0 & Planned Expansion <a name="hardware"></a>
 
 The platform integrates specialized components and offloads low-level tasks to dedicated hardware to maximize performance on the Raspberry Pi 5.
 
@@ -61,7 +61,7 @@ These components are slated for integration to enable full Simultaneous Localiza
 
 ---
 
-## 🏗️ Hardware Architecture <a name="hardware-architecture"></a>
+## Hardware Architecture <a name="hardware-architecture"></a>
 
 Control stability is achieved by separating high-level logic (Pi 5) from low-level, timing-critical operations (Pico).
 
@@ -112,7 +112,7 @@ flowchart TB
 ```
 ---
 
-## 💻 Software Architecture <a name="software-architecture"></a>
+## Software Architecture <a name="software-architecture"></a>
 
 The robot's functionality is managed by **seven separate Python scripts** that communicate through a combination of methods tailored for high performance and integrity.
 
@@ -139,7 +139,7 @@ Scripts communicate using a combination of:
 
 ---
 
-## 📅 Development Roadmap <a name="roadmap"></a>
+## Development Roadmap <a name="roadmap"></a>
 
 The following goals focus on transitioning J1 from a teleoperated platform to a fully autonomous agent.
 
