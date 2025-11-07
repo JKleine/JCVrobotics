@@ -157,4 +157,4 @@ The following goals focus on transitioning J1 from a teleoperated platform to a 
 
 * **Sensor Suite Integration:** Complete the hardware and software integration of the planned **Lidar**, **ToF Imager**, **Encoders**, and **Head IMU**.
 * **Body Design & 3D Printing:** Design and 3D print an optimized body/chassis for the J1 robot that can securely mount all new sensor components and protect the internal hardware.
-* * **Animation and Action Scripting:** Add more behaviors and action scripts to `animations.json`. Add more states(moods) and expressions to `display.py`.
+* **Animation and Action Scripting:** Add more behaviors and action scripts to `animations.json`. Add more states(moods) and expressions to `display.py`.
