@@ -143,12 +143,17 @@ Scripts communicate using a combination of:
 
 The following goals focus on transitioning J1 from a teleoperated platform to a fully autonomous robot.
 
-### I. Autonomous Capabilities & SLAM
+### I. Script Integration / Upgrades
+
+* **Vision Pipeline Expansion:** Model switching on demand via Operator script. Multiple parallel Hailo pipeline branches running 5-6 models for complex tasks, each with their own valve.
+* **Operator and Autonomy:** Add ports and command logic to Operator, and expland the Autonomous mode with a basic behavioral tree to drive autonomy.
+
+### II. Autonomous Capabilities & SLAM
 
 * **Full SLAM Implementation:** Integrate Lidar, ToF, and enhanced odometry data into a unified framework to create and maintain an internal map of the operating environment.
-* **Complete Autonomous Logic:** Fully develop the logic within `robot_operator.py` to enable complex decision-making based on fused sensor and vision data.
+* **Complete Autonomous Logic:** Further develop the logic within `robot_operator.py` to enable complex decision-making based on fused sensor and vision data.
 
-### II. Design & System Upgrades
+### III. Design & System Upgrades
 
 * **Sensor Suite Integration:** Complete the hardware and software integration of the planned **Lidar**, **ToF Imager**, **Encoders**, and **Head IMU**.
 * **Body Design & 3D Printing:** Design and 3D print an optimized body/chassis for the J1 robot that can securely mount all new sensor components and protect the internal hardware.
