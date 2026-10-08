@@ -15,7 +15,9 @@
 
 # J1: Real-Time Computer Vision Platform and Robotic Companion
 
-![J1 Robot Platform](images/J1_robot_with_background.jfif)
+<p align="center">
+  <img src="images/J1_robot_with_background.jfif" alt="J1 Robot Platform">
+</p>
 
 The **J1** is a robust mobile robot designed as a high-performance platform for complex **computer vision and robotics systems research**, and to function as a **friendly robotic companion**.
 <p align="center">
